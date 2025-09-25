@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Data Science Project</title>
+ <!-- Link to the CSS file in the static folder -->
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+ 
+</head>
+<body>
+ <body>
+  <div class="container">
+    <h1>Movie Dashboard</h1>
+    <p class="subtitle">Aggregated insights from your dataset</p>
+
+    <!-- Filter Form (Optional for Bonus Task) -->
+    <form method="get" action="/">
+      <label for="type">Filter by Content Type:</label>
+      <select name="type" id="type">
+        <option value="">All</option>
+        <option value="Movie" {% if selected_type == 'Movie' %}selected{% endif %}>Movie</option>
+        <option value="TV Show" {% if selected_type == 'TV Show' %}selected{% endif %}>TV Show</option>
+      </select>
+      <button type="submit">Apply Filter</button>
+    </form>
+
+    <!-- Top Directors Table -->
+    <h2>Top 10 Directors {% if selected_type %}({{ selected_type }} Only){% endif %}</h2>
+<table border="1">
+  <tr><th>Director</th><th>Count</th></tr>
+  {% for director, count in top_directors.items() %}
+  <tr><td>{{ director }}</td><td>{{ count }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Top 10 Countries {% if selected_type %}({{ selected_type }} Only){% endif %}</h2>
+<table border="1">
+  <tr><th>Country</th><th>Count</th></tr>
+  {% for country, count in top_countries.items() %}
+  <tr><td>{{ country }}</td><td>{{ count }}</td></tr>
+  {% endfor %}
+</table>
+
+
+    {% if error_message %}
+      <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+  </div>
+  <form method="get" action="/">
+  <label for="type">Filter by Content Type:</label>
+  <select name="type" id="type">
+    <option value="">All</option>
+    <option value="Movie" {% if selected_type == 'Movie' %}selected{% endif %}>Movie</option>
+    <option value="TV Show" {% if selected_type == 'TV Show' %}selected{% endif %}>TV Show</option>
+  </select>
+  <button type="submit">Apply Filter</button>
+</form>
+
+</body>
+</html>
